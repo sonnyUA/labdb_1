@@ -1,34 +1,32 @@
-CREATE TABLE "users" (
-  "id" SERIAL PRIMARY KEY,
+CREATE TABLE "clients" (
+  "id" SERIAL UNIQUE PRIMARY KEY,
   "full_name" varchar,
   "email" varchar,
-  "phone_number" int,
-  "city" varchar,
-  "address" varchar
+  "phone" varchar,
+  "car" varchar
 );
 
-CREATE TABLE "order_items" (
-  "id" SERIAL PRIMARY KEY,
-  "order_id" int,
-  "product_id" int,
-  "quantity" int DEFAULT 1
+CREATE TABLE "mechanics" (
+  "id" SERIAL UNIQUE PRIMARY KEY,
+  "full_name" varchar,
+  "clients" int
 );
 
-CREATE TABLE "orders" (
-  "id" int PRIMARY KEY,
-  "user_id" int UNIQUE NOT NULL,
-  "status" varchar
-);
-
-CREATE TABLE "products" (
-  "id" int PRIMARY KEY,
+CREATE TABLE "typeOfWork" (
+  "id" SERIAL UNIQUE PRIMARY KEY,
   "name" varchar,
-  "price" int,
-  "status" int
+  "mechanic_id" int
 );
 
-ALTER TABLE "orders" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+CREATE TABLE "progressOfWork" (
+  "id" SERIAL UNIQUE PRIMARY KEY,
+  "client_id" int,
+  "time_wasted" timestamp,
+  "status" boolean
+);
 
-ALTER TABLE "order_items" ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("id");
+ALTER TABLE "clients" ADD FOREIGN KEY ("id") REFERENCES "mechanics" ("clients");
 
-ALTER TABLE "products" ADD FOREIGN KEY ("id") REFERENCES "order_items" ("product_id");
+ALTER TABLE "mechanics" ADD FOREIGN KEY ("id") REFERENCES "typeOfWork" ("mechanic_id");
+
+ALTER TABLE "progressOfWork" ADD FOREIGN KEY ("client_id") REFERENCES "clients" ("id");
