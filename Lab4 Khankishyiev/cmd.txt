@@ -1,0 +1,4 @@
+SELECT * from clients where mechanic_id=7
+insert into clients (id, full_name, email, phone, car, mechanic_id) values (101, 'Name Lastname', 'email@gmail.com', '123-456-7890','Silvia',1 )
+update clients set car='Skyline' where id=101;
+delete from clients where id=101;
