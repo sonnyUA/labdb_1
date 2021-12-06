@@ -1,0 +1,16 @@
+import math
+
+def rivn_poisk(a,b,l):
+    x = a
+    app = []
+    while x<b:
+        f1=(x**4)/math.log(x)
+        x=x+l
+        f2=(x**4)/math.log(x)
+        if f1<f2:
+            app.append({f1,x-l})           
+            
+    Xm=min(app)
+    print("Метод рівномiрного пошуку " + str(Xm))
+
+rivn_poisk(1.1,1.5,0.1)
